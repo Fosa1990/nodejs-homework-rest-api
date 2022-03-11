@@ -1,9 +1,12 @@
 const Contact = require('../../models/contacts/schemaContact');
 
-const getContactById = async (req, res, next) => {
+const updateContact = async (req, res, next) => {
   try {
+    const { body } = req;
     const { contactId } = req.params;
-    const contact = await Contact.findOne({ _id: contactId });
+    const contact = await Contact.findByIdAndUpdate({ _id: contactId }, body, {
+      new: true,
+    });
     if (contact) {
       return res
         .status(200)
@@ -21,4 +24,4 @@ const getContactById = async (req, res, next) => {
   }
 };
 
-module.exports = getContactById;
+module.exports = updateContact;

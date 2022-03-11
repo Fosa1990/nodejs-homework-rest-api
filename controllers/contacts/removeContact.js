@@ -1,9 +1,9 @@
 const Contact = require('../../models/contacts/schemaContact');
 
-const getContactById = async (req, res, next) => {
+const removeContact = async (req, res, next) => {
   try {
     const { contactId } = req.params;
-    const contact = await Contact.findOne({ _id: contactId });
+    const contact = await Contact.findByIdAndRemove({ _id: contactId });
     if (contact) {
       return res
         .status(200)
@@ -21,4 +21,4 @@ const getContactById = async (req, res, next) => {
   }
 };
 
-module.exports = getContactById;
+module.exports = removeContact;
