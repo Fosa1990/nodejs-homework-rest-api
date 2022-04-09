@@ -1,11 +1,24 @@
-const validationCreateContact = require('./validationCreateContact');
-const validationUpdateContact = require('./validationUpdateContact');
-const validationFavoriteContact = require('./validationFavoriteContact');
-const validationMangoId = require('./validationMogoId');
+const {
+  validationCreateContact,
+  validationUpdateContact,
+  validationFavoriteContact,
+  validationContactId,
+} = require('./contact');
+
+const {
+  validationSignupUser,
+  validationLoginUser,
+  validationUpdateSubscription,
+  validationUserId,
+} = require('./user');
 
 module.exports = {
   validationCreateContact,
   validationUpdateContact,
   validationFavoriteContact,
-  validationMangoId,
+  validationContactId,
+  validationSignupUser,
+  validationLoginUser,
+  validationUpdateSubscription,
+  validationUserId,
 };
