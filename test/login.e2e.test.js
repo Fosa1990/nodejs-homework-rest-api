@@ -14,7 +14,7 @@ describe('Login service test', () => {
       status: 'success',
       code: 200,
       payload: {
-        token: String,
+        token: expect.any(String),
         user: {
           email: testUser.email,
           subscription: 'starter' || 'pro' || 'business',
@@ -34,10 +34,13 @@ describe('Login service test', () => {
     expect(res.status).toEqual(200);
     expect(res.body).toBeDefined();
     expect(res.body.payload).toHaveProperty('token');
+    expect(typeof res.body.payload.token).toBe('string');
     token = res.body.payload.token;
+    expect(typeof res.body.payload.user.email).toBe('string');
     expect(res.body.payload.user.email).toEqual(
       expectedResponse.payload.user.email,
     );
+    expect(typeof res.body.payload.user.subscription).toBe('string');
     expect(res.body.payload.user.subscription).toEqual(
       expectedResponse.payload.user.subscription,
     );
