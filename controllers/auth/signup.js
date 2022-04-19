@@ -15,7 +15,7 @@ const signup = async (req, res) => {
     email,
     subscription,
   });
-
+  newUser.setAvatar();
   newUser.setHashPassword(password);
   newUser.save();
 
@@ -27,6 +27,7 @@ const signup = async (req, res) => {
         name: newUser.name,
         email: newUser.email,
         subscription: newUser.subscription,
+        avatarURL: newUser.avatarURL,
       },
     },
   });

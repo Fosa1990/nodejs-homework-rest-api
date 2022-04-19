@@ -17,6 +17,7 @@ const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 app.use(limiter(15 * 60 * 1000, 100)); // 15 minutes
 app.use(helmet());
 app.use(logger(formatsLogger));
+app.use(express.static(process.env.STATIC_FOLDER));
 app.use(cors());
 app.use(express.json());
 
@@ -34,7 +35,7 @@ app.use((_, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log(err.stack);
+  // console.log(err.stack);
   res.status(err.status || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
     status: STATUS.FAIL,
     code: err.status || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR,

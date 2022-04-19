@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const gravatar = require('gravatar');
 const { regexName, regexEmail } = require('../../helpers/regex');
 const {
   USER_NAME_LIMIT,
@@ -31,7 +32,7 @@ const userMongooseSchema = Schema(
       lowercase: true,
       minlength: USER_EMAIL_LIMIT.MIN,
       maxlength: USER_EMAIL_LIMIT.MAX,
-      required: [true, 'Email  is required'],
+      required: [true, 'Email is required'],
       validate: [validateEmail, 'Please fill a valid email address'],
       match: [regexEmail, 'Please fill a valid email address'],
       unique: true,
@@ -52,8 +53,13 @@ const userMongooseSchema = Schema(
         USER_SUBSCRIPTION_TYPE.PRO,
         USER_SUBSCRIPTION_TYPE.BUSINESS,
       ],
-      required: [false, "Subscription  isn't required"],
+      required: [false, "Subscription isn't required"],
       default: USER_SUBSCRIPTION_TYPE.STARTER,
+    },
+    avatarURL: {
+      type: String,
+      required: [true, 'Avatar is required'],
+      default: null,
     },
     token: {
       type: String,
@@ -72,13 +78,21 @@ userMongooseSchema.methods.comparePassword = function (password) {
   return bcrypt.compareSync(password, this.password);
 };
 
+userMongooseSchema.methods.updateSubscription = function (newSubscription) {
+  this.subscription = newSubscription;
+};
+
+userMongooseSchema.methods.setAvatar = function () {
+  this.avatarURL = gravatar.url(this.email, { s: '250' }, true);
+};
+
+userMongooseSchema.methods.updateAvatar = function (avatarURL) {
+  this.avatarURL = avatarURL;
+};
+
 userMongooseSchema.methods.setToken = function () {
   const { SECRET_KEY } = process.env;
   this.token = jwt.sign({ id: this._id }, SECRET_KEY, { expiresIn: '1h' });
-};
-
-userMongooseSchema.methods.updateSubscription = function (newSubscription) {
-  this.subscription = newSubscription;
 };
 
 const User = model('user', userMongooseSchema);
