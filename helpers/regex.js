@@ -4,4 +4,6 @@ const regexEmail =
 const regexPhone =
   /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/;
 
-module.exports = { regexName, regexEmail, regexPhone };
+const regexToken = /(^[A-Za-z0-9-_]*\.[A-Za-z0-9-_]*\.[A-Za-z0-9-_]*$)/g;
+
+module.exports = { regexName, regexEmail, regexPhone, regexToken };
