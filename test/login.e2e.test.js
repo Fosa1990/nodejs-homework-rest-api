@@ -1,6 +1,7 @@
 const request = require('supertest');
 const db = require('../db/dbMongoose');
 const app = require('../app');
+const { regexToken } = require('../helpers/regex');
 
 describe('Login service test', () => {
   beforeAll(async () => (connect = await db));
@@ -35,6 +36,7 @@ describe('Login service test', () => {
     expect(res.body).toBeDefined();
     expect(res.body.payload).toHaveProperty('token');
     expect(typeof res.body.payload.token).toBe('string');
+    expect(res.body.payload.token).toMatch(regexToken);
     token = res.body.payload.token;
     expect(typeof res.body.payload.user.email).toBe('string');
     expect(res.body.payload.user.email).toEqual(
