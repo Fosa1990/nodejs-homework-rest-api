@@ -1,8 +1,8 @@
 const nodemailer = require('nodemailer');
 
 const config = {
-  host: 'smtp.meta.ua',
-  port: 465,
+  host: process.env.SMTP_META_HOST, //smtp.meta.ua
+  port: process.env.SECURE_PORT, // 465
   secure: true,
   auth: {
     user: process.env.META_EMAIL,
