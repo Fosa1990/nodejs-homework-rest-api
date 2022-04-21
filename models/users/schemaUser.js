@@ -66,6 +66,14 @@ const userMongooseSchema = Schema(
       required: [false, "Token isn't required"],
       default: null,
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true },
 );
@@ -86,13 +94,17 @@ userMongooseSchema.methods.setAvatar = function () {
   this.avatarURL = gravatar.url(this.email, { s: '250' }, true);
 };
 
-userMongooseSchema.methods.updateAvatar = function (avatarURL) {
-  this.avatarURL = avatarURL;
-};
-
 userMongooseSchema.methods.setToken = function () {
   const { SECRET_KEY } = process.env;
   this.token = jwt.sign({ id: this._id }, SECRET_KEY, { expiresIn: '1h' });
+};
+
+userMongooseSchema.methods.verifyUser = function (updateVerification) {
+  this.isVerified = updateVerification;
+};
+
+userMongooseSchema.methods.verifyToken = function (updateToken) {
+  this.verificationToken = updateToken;
 };
 
 const User = model('user', userMongooseSchema);

@@ -7,12 +7,12 @@ const subscription = async (req, res, next) => {
   const { _id: id } = req.user;
 
   try {
-    const user = await User.findById(id);
+    const userExist = await User.findById(id);
 
-    if (!user) next(NotFound(`Not found user by id:${id}`));
+    if (!userExist) next(NotFound(`Not found user by id:${id}`));
 
-    user.updateSubscription(subscription);
-    await user.save();
+    userExist.updateSubscription(subscription);
+    await userExist.save();
 
     res.status(HTTP_STATUS_CODE.OK).json({
       status: STATUS.OK,

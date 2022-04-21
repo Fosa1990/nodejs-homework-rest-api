@@ -6,9 +6,9 @@ const current = async (req, res, next) => {
   const { id } = req.user;
   const userExist = await User.findById(id);
 
-  if (!userExist) next(Unauthorized());
+  if (!userExist || !userExist.isVerified) next(Unauthorized());
 
-  res.json({
+  res.status(HTTP_STATUS_CODE.OK).json({
     status: STATUS.SUCCESS,
     code: HTTP_STATUS_CODE.OK,
     payload: {

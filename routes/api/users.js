@@ -1,5 +1,10 @@
 const express = require('express');
-const { current, subscription, avatar } = require('../../controllers');
+const {
+  current,
+  subscription,
+  avatar,
+  verificationEmail,
+} = require('../../controllers');
 const {
   validateAuth,
   validateBody,
@@ -26,5 +31,8 @@ router.patch(
   [validateAuth, validateBody(validationUpdateSubscription)],
   controlWrapper(subscription),
 );
+
+// http://localhost:8083/api/users/verify/:verificationToken
+router.get('/verify/:verificationToken', controlWrapper(verificationEmail));
 
 module.exports = router;
