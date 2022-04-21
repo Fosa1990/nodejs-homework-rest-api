@@ -20,7 +20,7 @@ const subscription = async (req, res, next) => {
       payload: { subscription },
     });
   } catch (error) {
-    console.log('subscription: ', error.message);
+    console.log('__SUBSCRIPTION_ERROR__: ', error.message);
     next(BadRequest(error.message));
   }
 };

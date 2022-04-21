@@ -36,7 +36,7 @@ app.use((_, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.log('app error handler:', err.stack);
+  console.log('__MAIN_ERROR_HANDLER__: ', err.stack);
   res.status(err.status || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
     status: err.status || STATUS.FAIL,
     code: err.status || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR,

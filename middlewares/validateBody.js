@@ -5,7 +5,7 @@ const validateBody = schema => async (req, res, next) => {
     await schema.validateAsync(req.body);
     next();
   } catch (error) {
-    console.log('validateBody eror: ', error.details);
+    console.log('__VALIDATE_BODY_ERROR__: ', error.details);
     return res.status(HTTP_STATUS_CODE.BAD_REQUEST).json({
       status: STATUS.ERROR,
       code: HTTP_STATUS_CODE.BAD_REQUEST,
