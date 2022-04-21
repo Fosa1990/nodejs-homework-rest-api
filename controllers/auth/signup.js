@@ -1,12 +1,8 @@
 const { randomUUID } = require('crypto');
 const { Conflict } = require('http-errors');
 const { User } = require('../../models');
-const {
-  HTTP_STATUS_CODE,
-  STATUS,
-  PORT,
-} = require('../../helpers/constants.js');
-const { sendEmail } = require('../../service/sendEmail');
+const { HTTP_STATUS_CODE, STATUS } = require('../../helpers/constants.js');
+const { sendEmail, emailConfig } = require('../../service/emailService');
 
 const signup = async (req, res) => {
   const { name, email, password, subscription } = req.body;
@@ -30,31 +26,11 @@ const signup = async (req, res) => {
   newUser.setHashPassword(password);
   await newUser.save();
 
-  const htmlTemplate = `
-  <h1>Hi ${newUser.name}!</h1>
-  <p>You need to confirm your email to access the contact service.</p>
-  <br/>
-  <p>If you have any questions/issues regarding the process, feel free to <a target="_blank" rel="noopener noreferrer" href="mailto:fosa1990@meta.ua">contact me.</a></p>
-  <br/>
-  <p>To verify your email: <b>${newUser.email}</b> <a target="_blank" href="http://localhost:${PORT}/api/users/verify/${newUser.verificationToken}">Click here</a>. Thank you :)</p>
-  <br/>
-  <p>Glad to see you on my:&nbsp;
-  <a target="_blank" rel="noopener noreferrer" href="https://github.com/Fosa1990">Github</a>&nbsp;
-  <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/in/fosa1990/">LinkedIn</a>
-  </p>
-  <br/>
-  <p>With Regards,</p>
-  <h4>Anatoliy Sulypa</h4>
-  `;
-
-  // emailConfig = { to, subject, text, html };
-  const emailData = {
-    to: newUser.email,
-    subject: 'Email verification',
-    text: `Please verify your email: ${newUser.email}`,
-    html: htmlTemplate,
-  };
-
+  const emailData = await emailConfig(
+    newUser.name,
+    newUser.email,
+    newUser.verificationToken,
+  );
   await sendEmail(emailData);
 
   return res.status(HTTP_STATUS_CODE.CREATED).json({
@@ -66,6 +42,7 @@ const signup = async (req, res) => {
         email: newUser.email,
         subscription: newUser.subscription,
         avatarURL: newUser.avatarURL,
+        isVerified: newUser.isVerified,
         verificationToken: newUser.verificationToken,
       },
     },

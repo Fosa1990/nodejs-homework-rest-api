@@ -4,6 +4,7 @@ const {
   subscription,
   avatar,
   verificationEmail,
+  reVerificationEmail,
 } = require('../../controllers');
 const {
   validateAuth,
@@ -11,7 +12,10 @@ const {
   controlWrapper,
   validateUpload,
 } = require('../../middlewares');
-const { validationUpdateSubscription } = require('../../service/validation');
+const {
+  validationUpdateSubscription,
+  validationEmail,
+} = require('../../service/validation');
 
 const router = new express.Router();
 
@@ -30,6 +34,13 @@ router.patch(
   '/subscription',
   [validateAuth, validateBody(validationUpdateSubscription)],
   controlWrapper(subscription),
+);
+
+// http://localhost:8083/api/users/verify
+router.post(
+  '/verify',
+  validateBody(validationEmail),
+  controlWrapper(reVerificationEmail),
 );
 
 // http://localhost:8083/api/users/verify/:verificationToken

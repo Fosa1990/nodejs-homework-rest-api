@@ -7,12 +7,11 @@ const verificationEmail = async (req, res) => {
 
   const userExist = await User.findOne({ verificationToken });
 
-  if (!userExist) throw new NotFound('User not found');
+  if (!userExist) throw new NotFound('Not found user');
 
-  await User.findByIdAndUpdate(userExist._id, {
-    isVerified: true,
-    verificationToken: null,
-  });
+  userExist.verifyUser(true);
+  userExist.verifyToken(null);
+  await userExist.save();
 
   return res.status(HTTP_STATUS_CODE.OK).json({
     status: STATUS.SUCCESS,
