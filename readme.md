@@ -41,35 +41,86 @@
 
 ### Contacts:
 
-#### GET - http://localhost:8083/api/contacts/ --- Get All contacts.
+#### GET --- Get All contacts.
 
-#### GET - http://localhost:8083/api/contacts/:contactId --- Get contact by id ID.
+- http://localhost:8083/api/contacts/--- Without Docker.
+- http://localhost/api/contacts/--- With Docker.
 
-#### POST - http://localhost:8083/api/contacts/ --- Add new contact.
+#### GET --- Get contact by id ID.
 
-#### DELETE - http://localhost:8083/api/contacts/:contactId --- Remove contact by ID.
+- http://localhost:8083/api/contacts/:contactId--- Without Docker.
+- http://localhost/api/contacts/:contactId--- With Docker.
 
-#### PUT - http://localhost:8083/api/contacts/:contactId --- Update contact by ID.
+#### POST --- Add new contact.
 
-#### PATCH - http://localhost:8083/api/contacts/:contactId/favorite --- Update status "favorite" of contact by ID.
+- http://localhost:8083/api/contacts/--- Without Docker.
+- http://localhost/api/contacts/--- With Docker.
+
+#### DELETE --- Remove contact by ID.
+
+- http://localhost:8083/api/contacts/:contactId--- Without Docker.
+- http://localhost/api/contacts/:contactId--- With Docker.
+
+#### PUT --- Update contact by ID.
+
+- http://localhost:8083/api/contacts/:contactId--- Without Docker.
+- http://localhost/api/contacts/:contactId--- With Docker.
+
+#### PATCH --- Update status "favorite" of contact by ID.
+
+- http://localhost:8083/api/contacts/:contactId/favorite --- Without Docker.
+- http://localhost/api/contacts/:contactId/favorite--- With Docker.
 
 ### Auth:
 
-#### POST - http://localhost:8083/api/auth/signup --- User registration.
+#### POST --- User registration.
 
-#### POST - http://localhost:8083/api/auth/login --- Login user.
+- http://localhost:8083/api/auth/signup --- Without Docker.
+- http://localhost/api/auth/signup --- With Docker.
 
-#### GET - http://localhost:8083/api/auth/logout --- User logging out.
+#### POST --- Login user.
+
+- http://localhost:8083/api/auth/login --- Without Docker.
+- http://localhost/api/auth/login --- With Docker.
+
+#### GET --- User logging out.
+
+- http://localhost:8083/api/auth/logout --- Without Docker.
+- http://localhost/api/auth/logout --- With Docker.
 
 ### Users:
 
-#### GET - http://localhost:8083/api/users/current --- Information about current user.
+#### GET --- Information about current user.
+
+- http://localhost:8083/api/users/current --- Without Docker.
+- http://localhost/api/users/current --- With Docker.
+
+#### PATCH --- Update current avatar.
+
+- http://localhost:8083/api/users/avatars --- Without Docker.
+- http://localhost/api/users/avatars --- With Docker.
 
 #### PATCH - http://localhost:8083/api/users/:userId/subscription --- Update the user's "subscription".
 
+- http://localhost:8083/api/users/subscription --- Without Docker.
+- http://localhost/api/users/subscription --- With Docker.
+
+#### POST --- Send the verification letter to the specified mail.
+
+- http://localhost:8083/api/users/verify --- Without Docker.
+- http://localhost/api/users/verify --- With Docker.
+
+#### GET --- Resend the verification letter to the specified mail.
+
+- http://localhost:8083/api/users/verify/:verificationToken --- Without Docker.
+- http://localhost/api/users/verify/:verificationToken --- With Docker.
+
 ### Query:
 
-#### GET - http://localhost:8083/api/contacts?query --- Get All contacts by query.
+#### GET --- Get All contacts by query.
+
+- http://localhost:8083/api/contacts?query --- Without Docker.
+- http://localhost/api/contacts?query --- With Docker.
 
 #### page = number.
 

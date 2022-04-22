@@ -22,7 +22,8 @@ const {
 
 const router = new express.Router();
 
-// http://localhost:8083/api/contacts
+// http://localhost:8083/api/contacts  - Postman without Docker
+// http://localhost/api/contacts       - Postman with Docker
 router
   .get('/', validateAuth, controlWrapper(getContacts))
   .post(
@@ -31,7 +32,8 @@ router
     controlWrapper(addContact),
   );
 
-// http://localhost:8083/api/contacts/:contactId
+// http://localhost:8083/api/contacts/:contactId  - Postman without Docker
+// http://localhost/api/contacts/:contactId       - Postman with Docker
 router
   .get(
     '/:contactId',
@@ -53,7 +55,8 @@ router
     controlWrapper(removeContact),
   );
 
-// http://localhost:8083/api/contacts/:contactId/favorite
+// http://localhost:8083/api/contacts/:contactId/favorite  - Postman without Docker
+// http://localhost/api/contacts/:contactId/favorite       - Postman with Docker
 router.patch(
   '/:contactId/favorite',
   [

@@ -7,7 +7,9 @@ const emailConfig = async (name, email, verificationToken) => {
   <br/>
   <p>If you have any questions/issues regarding the process, feel free to <a target="_blank" rel="noopener noreferrer" href="mailto:fosa1990@meta.ua">contact me.</a></p>
   <br/>
-  <p>To verify your email: <b>${email}</b> <a target="_blank" href="http://localhost:${PORT}/api/users/verify/${verificationToken}">Click here</a>. Thank you :)</p>
+  <p>To verify your email <b>without Docker</b>: <b>${email}</b> <a target="_blank" href="http://localhost:${PORT}/api/users/verify/${verificationToken}">Click here</a>. Thank you :)</p>
+  <br/>
+  <p>To verify your email <b>with Docker</b>: <b>${email}</b> <a target="_blank" href="http://localhost/api/users/verify/${verificationToken}">Click here</a>. Thank you :)</p>
   <br/>
   <p>Glad to see you on my:&nbsp;
   <a target="_blank" rel="noopener noreferrer" href="https://github.com/Fosa1990">Github</a>&nbsp;
