@@ -1,5 +1,11 @@
 const { login, logout, signup } = require('./auth');
-const { current, subscription, avatar } = require('./users');
+const {
+  current,
+  subscription,
+  avatar,
+  verificationEmail,
+  reVerificationEmail,
+} = require('./users');
 
 const {
   getContacts,
@@ -23,4 +29,6 @@ module.exports = {
   updateFavorite,
   removeContact,
   avatar,
+  verificationEmail,
+  reVerificationEmail,
 };

@@ -29,18 +29,19 @@ app.use((_, res) => {
   res.status(HTTP_STATUS_CODE.NOT_FOUND).json({
     status: STATUS.ERROR,
     code: HTTP_STATUS_CODE.NOT_FOUND,
-    message: "Use routes: '/api/contacts' or '/api/auth/' or '/api/users'",
+    message:
+      "Use routes: '/api/contacts' or '/api/auth/' or '/api/users' or '/api/users/verify' ...",
     payload: 'Not found',
   });
 });
 
 app.use((err, req, res, next) => {
-  // console.log(err.stack);
+  console.log('__MAIN_ERROR_HANDLER__: ', err.stack);
   res.status(err.status || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR).json({
-    status: STATUS.FAIL,
+    status: err.status || STATUS.FAIL,
     code: err.status || HTTP_STATUS_CODE.INTERNAL_SERVER_ERROR,
     message: err.message,
-    payload: MESSAGES.INTERNALSERVERERROR,
+    payload: err.message || MESSAGES.INTERNALSERVERERROR,
   });
 });
 

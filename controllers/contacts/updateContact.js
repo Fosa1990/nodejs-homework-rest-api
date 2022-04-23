@@ -1,3 +1,4 @@
+const { BadRequest } = require('http-errors');
 const { Contact } = require('../../models');
 const { HTTP_STATUS_CODE, STATUS } = require('../../helpers/constants.js');
 
@@ -8,14 +9,7 @@ const updateContact = async (req, res) => {
     new: true,
   }).populate('owner', '_id name email');
 
-  if (!contact) {
-    return res.status(HTTP_STATUS_CODE.BAD_REQUEST).json({
-      status: STATUS.ERROR,
-      code: HTTP_STATUS_CODE.BAD_REQUEST,
-      message: `Not found contact by id:${contactId}`,
-      payload: 'Not Found',
-    });
-  }
+  if (!contact) throw new BadRequest(`Not found contact by id:${contactId}`);
 
   return res.status(HTTP_STATUS_CODE.OK).json({
     status: STATUS.SUCCESS,

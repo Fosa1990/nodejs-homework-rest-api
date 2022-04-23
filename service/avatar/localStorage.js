@@ -1,10 +1,15 @@
 const path = require('path');
 const fs = require('fs/promises');
+const { Unauthorized } = require('http-errors');
 const { User } = require('../../models');
 
 const localStorage = async (file, user) => {
   const { id } = user;
   const { path: tempFilePath, originalname } = file;
+
+  const userExist = await User.findById(id);
+
+  if (!userExist) throw new Unauthorized('User not found');
 
   const avatarsDirectory = path.join(
     process.cwd(),

@@ -6,12 +6,17 @@ const login = async (req, res) => {
   const { email, password } = req.body;
   const userExist = await User.findOne({ email });
 
-  if (!userExist || !userExist.comparePassword(password)) {
-    throw new Unauthorized(`Email or password is wrong`);
+  const userNotExistCondition =
+    !userExist || !userExist.isVerified || !userExist.comparePassword(password);
+
+  if (userNotExistCondition) {
+    throw new Unauthorized(
+      `Email or password is wrong or user is not verified`,
+    );
   }
 
   userExist.setToken();
-  userExist.save();
+  await userExist.save();
 
   res.json({
     status: STATUS.SUCCESS,

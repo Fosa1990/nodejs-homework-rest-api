@@ -54,6 +54,8 @@ const FILESIZE = {
   FIVEMB: 5242880,
 };
 
+const PORT = process.env.PORT || 8081;
+
 module.exports = {
   CONTACT_NAME_LIMIT,
   CONTACT_EMAIL_LIMIT,
@@ -67,4 +69,5 @@ module.exports = {
   MESSAGES,
   DIRNAME,
   FILESIZE,
+  PORT,
 };
